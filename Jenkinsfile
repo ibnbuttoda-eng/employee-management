@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t employee-app:v1 .'
+                sh 'docker build -t employee-app:${BUILD_NUMBER} .'
             }
         }
 
@@ -20,7 +20,7 @@ pipeline {
                 sh '''
                 docker stop employee-app || true
                 docker rm employee-app || true
-                docker run -d --name employee-app -p 8080:8080 employee-app:v1
+                docker run -d --name employee-app -p 8080:8080 employee-app:${BUILD_NUMBER}
                 '''
             }
         }
