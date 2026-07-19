@@ -20,7 +20,7 @@ pipeline {
                 sh '''
                 docker stop employee-app || true
                 docker rm employee-app || true
-                docker run -d --name employee-app -p 8080:8080 employee-app:${BUILD_NUMBER}
+                docker run -d \ --name employee-app \ --network employee-network \ -p 8080:8080 \ employee-app:${BUILD_NUMBER}
                 '''
             }
         }
