@@ -1,4 +1,5 @@
 package com.devops.Artifact.employee_management;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -10,23 +11,24 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
     private String department;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, String department) {
+    public Employee(Integer id, String name, String department) {
         this.id = id;
         this.name = name;
         this.department = department;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
