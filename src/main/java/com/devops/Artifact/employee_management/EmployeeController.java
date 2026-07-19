@@ -26,7 +26,7 @@ public class EmployeeController {
         employees.add(employee);
         return employee;
     }
-    
+
     @GetMapping("/{id}")
 public Employee getEmployeeById(@PathVariable int id) {
     for (Employee employee : employees) {
@@ -34,6 +34,22 @@ public Employee getEmployeeById(@PathVariable int id) {
             return employee;
         }
     }
+    return null;
+}
+@PutMapping("/{id}")
+public Employee updateEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee) {
+
+    for (Employee employee : employees) {
+
+        if (employee.getId() == id) {
+
+            employee.setName(updatedEmployee.getName());
+            employee.setDepartment(updatedEmployee.getDepartment());
+
+            return employee;
+        }
+    }
+
     return null;
 }
 }
