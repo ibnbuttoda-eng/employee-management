@@ -26,4 +26,14 @@ public class EmployeeController {
         employees.add(employee);
         return employee;
     }
+    
+    @GetMapping("/{id}")
+public Employee getEmployeeById(@PathVariable int id) {
+    for (Employee employee : employees) {
+        if (employee.getId() == id) {
+            return employee;
+        }
+    }
+    return null;
+}
 }
