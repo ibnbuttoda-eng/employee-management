@@ -52,4 +52,18 @@ public Employee updateEmployee(@PathVariable int id, @RequestBody Employee updat
 
     return null;
 }
+@DeleteMapping("/{id}")
+public String deleteEmployee(@PathVariable int id) {
+
+    for (Employee employee : employees) {
+
+        if (employee.getId() == id) {
+
+            employees.remove(employee);
+            return "Employee deleted successfully";
+        }
+    }
+
+    return "Employee not found";
+}
 }
