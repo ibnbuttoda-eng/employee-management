@@ -17,13 +17,13 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() 
+    public List<Employee> getAllEmployees() {
+        return employees;
+    }
+
     @PostMapping
     public Employee addEmployee(@RequestBody Employee employee) {
-    employees.add(employee);
-    return employee;
-}
-    {
-        return employees;
+        employees.add(employee);
+        return employee;
     }
 }
