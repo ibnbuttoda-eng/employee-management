@@ -9,22 +9,19 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private List<Employee> employees = new ArrayList<>();
-
-    public EmployeeController() {
-        employees.add(new Employee(1, "John", "IT"));
-        employees.add(new Employee(2, "Alice", "HR"));
+    private final EmployeeRepository employeeRepository;
+    public EmployeeController(EmployeeRepository employeeRepository) {
+    this.employeeRepository = employeeRepository;
     }
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employees;
+    return employeeRepository.findAll();
     }
 
     @PostMapping
     public Employee addEmployee(@RequestBody Employee employee) {
-        employees.add(employee);
-        return employee;
+    return employeeRepository.save(employee);
     }
 
     @GetMapping("/{id}")
