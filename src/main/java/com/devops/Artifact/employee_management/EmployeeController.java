@@ -2,7 +2,6 @@ package com.devops.Artifact.employee_management;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -10,57 +9,50 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
+
     public EmployeeController(EmployeeRepository employeeRepository) {
-    this.employeeRepository = employeeRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-    return employeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
     @PostMapping
     public Employee addEmployee(@RequestBody Employee employee) {
-    return employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @GetMapping("/{id}")
-public Employee getEmployeeById(@PathVariable int id) {
-    for (Employee employee : employees) {
-        if (employee.getId() == id) {
-            return employee;
-        }
+    public Employee getEmployeeById(@PathVariable int id) {
+        return employeeRepository.findById(id).orElse(null);
     }
-    return null;
-}
-@PutMapping("/{id}")
-public Employee updateEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee) {
 
-    for (Employee employee : employees) {
+    @PutMapping("/{id}")
+    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee) {
 
-        if (employee.getId() == id) {
+        Employee employee = employeeRepository.findById(id).orElse(null);
 
+        if (employee != null) {
             employee.setName(updatedEmployee.getName());
             employee.setDepartment(updatedEmployee.getDepartment());
-
-            return employee;
+            return employeeRepository.save(employee);
         }
+
+        return null;
     }
 
-    return null;
-}
-@DeleteMapping("/{id}")
-public String deleteEmployee(@PathVariable int id) {
+    @DeleteMapping("/{id}")
+    public String deleteEmployee(@PathVariable int id) {
 
-    for (Employee employee : employees) {
+        Employee employee = employeeRepository.findById(id).orElse(null);
 
-        if (employee.getId() == id) {
-
-            employees.remove(employee);
+        if (employee != null) {
+            employeeRepository.delete(employee);
             return "Employee deleted successfully";
         }
-    }
 
-    return "Employee not found";
-}
+        return "Employee not found";
+    }
 }
