@@ -16,13 +16,18 @@ pipeline {
         }
 
         stage('Deploy Container') {
-            steps {
-                sh '''
-                docker stop employee-app || true
-                docker rm employee-app || true
-                docker run -d \ --name employee-app \ --network employee-network \ -p 8080:8080 \ employee-app:${BUILD_NUMBER}
-                '''
-            }
-        }
+    steps {
+        sh '''
+        docker stop employee-app || true
+        docker rm employee-app || true
+
+        docker run -d \
+          --name employee-app \
+          --network employee-network \
+          -p 8080:8080 \
+          employee-app:${BUILD_NUMBER}
+        '''
+    }
+}
     }
 }
