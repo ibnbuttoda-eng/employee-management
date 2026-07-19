@@ -17,7 +17,13 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<Employee> getAllEmployees() 
+    @PostMapping
+    public Employee addEmployee(@RequestBody Employee employee) {
+    employees.add(employee);
+    return employee;
+}
+    {
         return employees;
     }
 }
